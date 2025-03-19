@@ -1,0 +1,52 @@
+.work-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 15px;
+  padding: 20px;
+  margin-top: 100px;
+}
+
+.work-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain; 
+  transition: transform 0.3s ease-in-out;
+  background-color: transparent; 
+}
+
+.shape-0 {
+  border-radius: 50%; 
+}
+
+.shape-1 {
+  border-radius: 20px;
+}
+
+.shape-2 {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+
+.shape-3 {
+  clip-path: ellipse(40% 60% at center);
+}
+
+.shape-4 {
+  border-radius: 0 50px 50px 0; 
+}
+
+.work-image:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+  .work-gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .work-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+}

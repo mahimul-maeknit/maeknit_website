@@ -1,0 +1,139 @@
+.top-nav-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 20;
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.top-nav {
+  display: flex; 
+  gap: 20px;
+}
+
+.top-nav a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  font-family: 'Quicksand', sans-serif;
+  transition: color 0.3s ease-in-out;
+}
+
+.top-nav a:hover {
+  color: #ff5252;
+}
+
+.top-nav.home-nav a {
+  color: black !important;
+}
+
+.top-nav.home-nav a:hover {
+  color: #ff5252 !important;
+}
+
+
+.top-nav.other a {
+  color: black !important;
+  background: transparent;
+}
+
+.top-nav.other a:hover {
+  color: #ff5252 !important;
+  background: white;
+
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  object-fit: contain;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .top-nav-container {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    padding: 10px;
+    background: transparent !important;
+    z-index: 50;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    left: 25px;
+    top: 20px;
+    z-index: 60;
+  }
+
+  .logo-container {
+    position: absolute;
+    left: 48%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    z-index: 50;
+  }
+
+  .logo {
+    margin-top:60px;
+    width: 80px;
+  }
+
+  .top-nav.hidden {
+    display: none;
+  }
+
+  .top-nav.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 90px; 
+    left: 48%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 40;
+  }
+
+  .top-nav.active.other {
+    background: white;
+  }
+
+  .top-nav a {
+    display: block;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(235, 231, 231);
+  }
+
+  .top-nav a:last-child {
+    border-bottom: none;
+  }
+}

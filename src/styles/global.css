@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Brunches';
+  src: url('../../public/fonts/Brunches-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Brunches';
+  src: url('../../public/fonts/Brunches-Rounded.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../public/fonts/quicksand.bold-regular.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../public/fonts/quicksand.boldoblique-regular.otf') format('opentype');
+  font-weight: bold;
+  font-style: oblique;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../public/fonts/quicksand.book-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../public/fonts/quicksand.light-regular.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../public/fonts/quicksand.lightoblique-regular.otf') format('opentype');
+  font-weight: 300;
+  font-style: oblique;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+  }
+  

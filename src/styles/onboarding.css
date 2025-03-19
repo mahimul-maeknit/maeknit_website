@@ -1,0 +1,20 @@
+.onboarding-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  padding: 50px 20px;
+  margin-top:100px;
+  background: white;
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+}
+
+
+@media (max-width: 768px) {
+  .onboarding-container {
+  margin-top: 20px;
+  padding-right: 20px;
+  }
+}
