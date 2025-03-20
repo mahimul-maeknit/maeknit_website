@@ -11,7 +11,6 @@ function Navbar({ page }) {
     { path: "/services", label: "SERVICES" },
     { path: "/work", label: "OUR WORK" },
     { path: "/about", label: "ABOUT" },
-    { path: "/contact", label: "CONTACT" },
     { path: "/onboarding", label: "ONBOARDING" },
   ];
 
