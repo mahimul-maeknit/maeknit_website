@@ -6,7 +6,6 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Work from "./pages/Work";
 import Onboarding from "./pages/Onboarding";
-import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
           <Route path="/work" element={<Work />} />
         </Routes>
       </div>
-      <Footer />
     </div>
   );
 }

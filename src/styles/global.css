@@ -55,3 +55,7 @@ body {
     color: #333;
   }
   
+  * {
+    text-transform: uppercase;
+  }
+  

@@ -6,8 +6,8 @@
   width: 100%;
   text-align: center;
   padding: 10px;
-  background: #000;
-  color: white;
+  background: transparent;
+  color: black;
   font-family: 'Quicksand', sans-serif;
   z-index: 1000; 
 }

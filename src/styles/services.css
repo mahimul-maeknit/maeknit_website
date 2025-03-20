@@ -9,6 +9,7 @@
   position: relative;
   margin-top: 200px;
   min-height: 100vh; /* Ensure it expands as needed */
+  padding-bottom: 120px;  
 
 }
 
