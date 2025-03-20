@@ -12,7 +12,7 @@ function Home() {
     <div className="home">
 
       <div className="video-container">
-        <video autoPlay loop muted className="background-video">
+        <video autoPlay loop muted playsInline className="background-video">
           <source src="/assets/ml_v1.mp4" type="video/mp4" />
         </video>
         <div className="centered-text-container">
