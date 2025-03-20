@@ -12,7 +12,7 @@ function Navbar({ page }) {
     { path: "/work", label: "OUR WORK" },
     { path: "/about", label: "ABOUT" },
     { path: "/contact", label: "CONTACT" },
-    { path: "/onboarding", label: "ONBOARDING" }
+    { path: "/onboarding", label: "ONBOARDING" },
   ];
 
   return (
@@ -21,7 +21,11 @@ function Navbar({ page }) {
         {menuOpen ? "✖" : "☰"}
       </div>
 
-      <nav className={`top-nav ${menuOpen ? "active" : "hidden"} ${isHome ? "home-nav" : "other"}`}>
+      <nav
+        className={`top-nav ${menuOpen ? "active" : "hidden"} ${
+          isHome ? "home-nav" : "other"
+        }`}
+      >
         {navItems
           .filter((item) => item.label.toLowerCase() !== page.toLowerCase())
           .map((item) => (
@@ -36,7 +40,13 @@ function Navbar({ page }) {
       </nav>
 
       <div className="logo-container">
-        <img src="/assets/maeknit-no-bg-logo.png" alt="Logo" className="logo" />
+        <Link to="/" onClick={() => setMenuOpen(false)}>
+          <img
+            src="/assets/maeknit-no-bg-logo.png"
+            alt="Logo"
+            className="logo"
+          />
+        </Link>
       </div>
     </div>
   );
