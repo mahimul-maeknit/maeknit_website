@@ -6,7 +6,12 @@ function Work() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const sampleImages = Array.from({ length: 9 }, (_, index) => `/assets/images/${index + 1}.jpeg`);
+    const sampleImages = Array.from({ length: 90 }, (_, index) => {
+      const fileNumber = index + 1;
+      const extension = fileNumber <= 7 ? "jpeg" : "png"; 
+      return `/assets/images/${fileNumber}.${extension}`;
+    });
+
     setImages(sampleImages);
   }, []);
 
@@ -15,7 +20,7 @@ function Work() {
       <Navbar page="OUR WORK" />
       <div className="work-gallery">
         {images.map((img, index) => (
-          <img key={index} src={img} alt={`Work ${index + 1}`} className={`work-image`} />
+          <img key={index} src={img} alt={`Work ${index + 1}`} className="work-image" />
         ))}
       </div>
     </>
