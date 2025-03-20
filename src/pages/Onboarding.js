@@ -23,6 +23,8 @@ function Onboarding() {
             height="1100px"
             frameBorder="0"
             allowFullScreen
+            scrolling="yes" /* Ensures scrollability */
+
           ></iframe>
         </div>
       </div>
