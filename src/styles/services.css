@@ -8,6 +8,8 @@
   font-family: "Quicksand", sans-serif;
   position: relative;
   margin-top: 200px;
+  min-height: 100vh; /* Ensure it expands as needed */
+
 }
 
 .services-content {
@@ -39,6 +41,9 @@
 @media (max-width: 768px) {
   .services-container {
     margin-top: 100px;
+    min-height: 100vh;
+    padding-bottom: 100px; 
+
   }
 
   .services-content {
