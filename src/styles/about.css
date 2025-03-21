@@ -9,21 +9,14 @@
   position: relative;
   margin-top: 200px;
 }
-
 .about-quote {
+  width: 70%;
+  text-align: left;
+  line-height: 1.8;
   font-style: italic;
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin-top: 90px;
-  max-width: 46%;
-  text-align: left;
-  line-height: 1.8;
-  margin-left: 700px; 
-  margin-right: auto;
-  display: flex;
-  justify-content: flex-end;
-  
 }
 
 .about-content {
@@ -89,10 +82,10 @@
   }
 
   .about-quote {
+    width: 90%;
+    font-size: 1rem;
     text-align: center;
-    max-width: 90%;
-    font-size: 1.3rem;
-    margin: 10px auto; 
+    line-height: 1.6;
   }
 
 }
