@@ -69,5 +69,6 @@ body {
 .handwritten {
   font-family: 'MalloryEpping', sans-serif;
   white-space: pre-wrap;
-  font-size: 3rem;
+  font-size: 2rem;
+  color: gray;
 }
