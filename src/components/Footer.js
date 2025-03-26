@@ -4,7 +4,7 @@ import "../styles/footer.css";
 function Footer() {
   return (
     <footer className="footer">
-      <p>&copy; 2025 Maeknit. All rights reserved.</p>
+      <p>&copy; 2025 MAEKNIT INC. All rights reserved.</p>
     </footer>
   );
 }
