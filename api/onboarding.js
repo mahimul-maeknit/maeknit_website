@@ -1,5 +1,5 @@
 import sendgrid from "@sendgrid/mail";
-import fetch from "node-fetch";
+
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx2e784wDn82nBacfS78AwL147WhtIBuQurqiZ3kncp5GPiC9z1jvVvrjFjX3VUBi9OjQ/exec';
 
