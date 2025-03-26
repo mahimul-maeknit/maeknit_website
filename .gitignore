@@ -55,3 +55,4 @@ cypress/screenshots/
 
 # TypeScript
 *.tsbuildinfo
+sendgrid.env
