@@ -1,0 +1,147 @@
+import React, { useState, useEffect } from "react";
+import Toast from "./Toast";
+import "../styles/onboarding-form.css";
+
+const interestOptions = [
+  "Rapid Prototyping",
+  "Production",
+  "Swatching",
+  "3D Sampling",
+  "Knit Programming",
+];
+
+const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"];
+
+const OnboardingForm = () => {
+  const [form, setForm] = useState({
+    interests: [],
+    identities: [],
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const handleCheckboxChange = (group, value) => {
+    setForm((prev) => {
+      const list = prev[group];
+      const updated = list.includes(value)
+        ? list.filter((item) => item !== value)
+        : [...list, value];
+      return { ...prev, [group]: updated };
+    });
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setToast(null);
+
+    try {
+      const res = await fetch("/api/onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit form");
+
+      setToast({
+        message: "Thanks! We'll be in touch shortly.",
+        type: "success",
+      });
+      setForm({
+        interests: [],
+        identities: [],
+        email: "",
+        message: "",
+      });
+    } catch (err) {
+      console.error(err);
+      setToast({
+        message: "Submission failed. Please try again.",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  return (
+    <>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+
+      <form className="onboarding-form" onSubmit={handleSubmit}>
+        <h2>Get Started with Maeknit</h2>
+
+        <label>What are you most interested in?</label>
+        <div className="checkbox-group column">
+          {interestOptions.map((item) => (
+            <label key={item}>
+              <input
+                type="checkbox"
+                checked={form.interests.includes(item)}
+                onChange={() => handleCheckboxChange("interests", item)}
+              />
+              {item}
+            </label>
+          ))}
+        </div>
+
+        <label>I am a:</label>
+        <div className="checkbox-group column">
+          {identityOptions.map((item) => (
+            <label key={item}>
+              <input
+                type="checkbox"
+                checked={form.identities.includes(item)}
+                onChange={() => handleCheckboxChange("identities", item)}
+              />
+              {item}
+            </label>
+          ))}
+        </div>
+
+        <label>Your Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Tell us more about yourself:</label>
+        <textarea
+          name="message"
+          value={form.message}
+          onChange={handleChange}
+          rows="5"
+        />
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
+    </>
+  );
+};
+
+export default OnboardingForm;
