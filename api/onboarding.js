@@ -1,5 +1,7 @@
 import sendgrid from "@sendgrid/mail";
+import fetch from "node-fetch";
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -72,6 +74,23 @@ export default async function handler(req, res) {
       subject: "We've received your onboarding form!",
       html: confirmationHTML,
     });
+
+    try {
+        await fetch(GOOGLE_SHEETS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            interests,
+            identities,
+            message,
+          }),
+        });
+      } catch (sheetErr) {
+        console.warn("Google Sheets logging failed:", sheetErr);
+      }
 
     return res.status(200).json({ success: true });
   } catch (err) {
