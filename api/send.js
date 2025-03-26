@@ -1,9 +1,10 @@
 const sgMail = require('@sendgrid/mail');
-
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).end("Method Not Allowed");
+  if (req.method !== 'POST') {
+    return res.status(405).end("Method Not Allowed");
+  }
 
   const { name, email, message, imageBase64 } = req.body;
 
@@ -13,9 +14,9 @@ export default async function handler(req, res) {
 
   try {
     await sgMail.send({
-      to: "tech@maeknit.io",
-      from: "no-reply@maeknit.com",
-      subject: `New Design from ${name}`,
+      to: "mahimul@maeknit.io",
+      from: "tech@maeknit.io", // must be a verified sender
+      subject: `New Design Submission from ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
@@ -26,14 +27,14 @@ export default async function handler(req, res) {
           content: imageBase64.split(',')[1],
           filename: "design.png",
           type: "image/png",
-          disposition: "attachment",
-        },
-      ],
+          disposition: "attachment"
+        }
+      ]
     });
 
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error("SendGrid Error:", err);
     return res.status(500).json({ error: "SendGrid error" });
   }
 }
