@@ -14,8 +14,8 @@ export default async function handler(req, res) {
 
   try {
     await sgMail.send({
-      to: "mahimul@maeknit.io",
-      from: "tech@maeknit.io", // must be a verified sender
+      to: "mallory@maeknit.io",
+      from: "tech@maeknit.io",
       subject: `New Design Submission from ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>

@@ -93,7 +93,7 @@ function Draw() {
 
   const messageMobile = "Welcome to your personal workboard!";
   const messageDesktop =
-    "Welcome to your personal workboard! Drag And DROP Inspiration associated with your project in the form of photos, drawings or text! Do whatever you want it's yours. We will use this to create your ideas into knit reality! Download your PNG and email it to us at intel@maeknit.io!";
+    "Welcome to your personal workboard! Drag And DROP Inspiration associated with your project in the form of photos, drawings or text! Do whatever you want it's yours. We will use this to create your ideas into knit reality!";
 
   return (
     <>
