@@ -6,6 +6,8 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Work from "./pages/Work";
 import Onboarding from "./pages/Onboarding";
+import Draw from "./pages/Draw"; // Add this import
+
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/draw" element={<Draw />} />
+
         </Routes>
       </div>
     </div>

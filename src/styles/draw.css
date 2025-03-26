@@ -1,0 +1,39 @@
+.draw-container {
+    position: relative;
+    padding-top: 100px; /* matches navbar height */
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .draw-wrapper {
+    height: calc(100vh - 80px); /* leave space for navbar + button */
+    width: 100%;
+  }
+  
+  .excalidraw {
+    height: 100%;
+    width: 100%;
+  }
+
+  .submit-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 12px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #222;
+  }
+  

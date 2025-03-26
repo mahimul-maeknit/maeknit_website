@@ -18,10 +18,10 @@
 
 .top-nav a {
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: black;
-  font-family: 'Quicksand', sans-serif;
+  color: black; 
+  font-family: 'MalloryEpping', sans-serif;
   transition: color 0.3s ease-in-out;
 }
 

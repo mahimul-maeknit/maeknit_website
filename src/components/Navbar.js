@@ -12,6 +12,7 @@ function Navbar({ page }) {
     { path: "/work", label: "OUR WORK" },
     { path: "/about", label: "ABOUT" },
     { path: "/onboarding", label: "ONBOARDING" },
+    { path: "/draw", label: "DRAW" }
   ];
 
   return (

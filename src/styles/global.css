@@ -47,6 +47,12 @@
   font-style: oblique;
 }
 
+@font-face {
+  font-family: 'MalloryEpping';
+  src: url('../../public/fonts/Malloryepping-Regular.otf') format('truetype');
+  font-display: swap;
+}
+
 body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
@@ -59,3 +65,9 @@ body {
     text-transform: uppercase;
   }
   
+
+.handwritten {
+  font-family: 'MalloryEpping', sans-serif;
+  white-space: pre-wrap;
+  font-size: 3rem;
+}
