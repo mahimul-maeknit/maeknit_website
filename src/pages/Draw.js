@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import SubmitModal from "../components/SubmitModal";
 import "../styles/draw.css";
 import TypedText from "./TypedText";
+import Toast from "../components/Toast";
 
 function Draw() {
   const excalidrawRef = useRef(null);
@@ -11,6 +12,7 @@ function Draw() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [imageData, setImageData] = useState(null);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -20,28 +22,6 @@ function Draw() {
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
-
-  const handleDownloadPNG = async () => {
-    const api = excalidrawRef.current;
-    if (!api) return;
-
-    const elements = api.getSceneElements();
-    const appState = api.getAppState();
-
-    const blob = await exportToBlob({
-      elements,
-      appState,
-      files: api.getFiles(),
-      mimeType: "image/png",
-    });
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "maeknit-design.png";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
 
   const handleOpenSubmitModal = async () => {
     const api = excalidrawRef.current;
@@ -81,13 +61,17 @@ function Draw() {
 
       if (!res.ok) throw new Error("Failed to send");
 
-      alert("Design submitted successfully!");
+      setToast({ message: "Design submitted successfully!", type: "success" });
       setIsModalOpen(false);
     } catch (err) {
       console.error(err);
-      alert("Submission failed. Try again.");
+      setToast({
+        message: "Submission failed. Please try again.",
+        type: "error",
+      });
     } finally {
       setIsSending(false);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
@@ -98,13 +82,19 @@ function Draw() {
   return (
     <>
       <Navbar page="DRAW" />
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
       <div className="draw-container">
         <div className="handwritten">
           <TypedText text={isMobile ? messageMobile : messageDesktop} />
         </div>
 
         <div className="button-group">
-
           <button className="submit-button-alt" onClick={handleOpenSubmitModal}>
             Submit Design
           </button>

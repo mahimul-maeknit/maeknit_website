@@ -14,13 +14,33 @@ export default async function handler(req, res) {
 
   try {
     await sgMail.send({
-      to: "mallory@maeknit.io",
-      from: "tech@maeknit.io",
+      to: "intel@maeknit.io",
+      from: "Maeknit INC <leads@maeknit.io>",
       subject: `New Design Submission from ${name}`,
       html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
+        <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333; line-height: 1.6;">
+          <h2 style="color: #000;">🧵 New Design Submission</h2>
+          <p>You’ve received a new design submission via the Maeknit form. Here are the details:</p>
+
+          <table style="margin-top: 20px; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Name:</td>
+              <td style="padding: 8px 12px;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Email:</td>
+              <td style="padding: 8px 12px;">${email}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Message:</td>
+              <td style="padding: 8px 12px;">${message}</td>
+            </tr>
+          </table>
+
+          <p style="margin-top: 30px;">The user also submitted an image. It’s attached to this email.</p>
+
+          <p style="margin-top: 40px; font-size: 14px; color: #777;">— Maeknit Automated Submission System</p>
+        </div>
       `,
       attachments: [
         {
