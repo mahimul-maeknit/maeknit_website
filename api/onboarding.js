@@ -68,7 +68,7 @@ export default async function handler(req, res) {
     // Confirmation to client
     await sendgrid.send({
       to: email,
-      from: "intel@maeknit.io",
+      from: "Maeknit INC <intel@maeknit.io>",
       subject: "We've received your onboarding form!",
       html: confirmationHTML,
     });
