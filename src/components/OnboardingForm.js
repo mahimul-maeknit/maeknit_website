@@ -14,6 +14,7 @@ const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"];
 
 const OnboardingForm = () => {
   const [form, setForm] = useState({
+    name: "",
     interests: [],
     identities: [],
     email: "",
@@ -55,6 +56,7 @@ const OnboardingForm = () => {
         type: "success",
       });
       setForm({
+        name: "",
         interests: [],
         identities: [],
         email: "",
@@ -91,7 +93,7 @@ const OnboardingForm = () => {
       <form className="onboarding-form" onSubmit={handleSubmit}>
         <h2>Get Started with Maeknit</h2>
 
-        <label>What are you most interested in?</label>
+        <label>I am most interested in:        </label>
         <div className="checkbox-group column">
           {interestOptions.map((item) => (
             <label key={item}>
@@ -119,7 +121,16 @@ const OnboardingForm = () => {
           ))}
         </div>
 
-        <label>Your Email:</label>
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+
+        <label>Email:</label>
         <input
           type="email"
           name="email"

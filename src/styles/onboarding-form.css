@@ -27,6 +27,7 @@
     font-size: 0.95rem;
   }
   
+  .onboarding-form input[type="text"],
   .onboarding-form input[type="email"],
   .onboarding-form textarea {
     width: 100%;

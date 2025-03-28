@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
 
 const TypedText = ({ text, speed = 40 }) => {
-    const [displayed, setDisplayed] = useState('');
+    const [index, setIndex] = useState(0);
   
     useEffect(() => {
-      let i = 0;
+      setIndex(0); // Reset index if text changes
       const interval = setInterval(() => {
-        if (i < text.length) {
-          const nextChar = text[i];
-          if (nextChar !== undefined) {
-            setDisplayed((prev) => prev + nextChar);
+        setIndex((prev) => {
+          if (prev >= text.length) {
+            clearInterval(interval);
+            return prev;
           }
-          i++;
-        } else {
-          clearInterval(interval);
-        }
+          return prev + 1;
+        });
       }, speed);
+  
       return () => clearInterval(interval);
     }, [text, speed]);
+
   
-    return <div className="handwritten">{displayed}</div>;
+    return <div className="handwritten">{text.slice(0, index)}</div>;
   };
   
 export default TypedText;
