@@ -12,7 +12,7 @@ const interestOptions = [
 
 const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"];
 
-const OnboardingForm = () => {
+const OnboardingForm = ({ compact = false }) => {
   const [form, setForm] = useState({
     name: "",
     interests: [],
@@ -90,10 +90,13 @@ const OnboardingForm = () => {
         />
       )}
 
-      <form className="onboarding-form" onSubmit={handleSubmit}>
+      <form
+        className={`onboarding-form ${compact ? "chat-mode" : ""}`}
+        onSubmit={handleSubmit}
+      >
         <h2>Get Started with Maeknit</h2>
 
-        <label>I am most interested in:        </label>
+        <label>I am most interested in: </label>
         <div className="checkbox-group column">
           {interestOptions.map((item) => (
             <label key={item}>
@@ -144,7 +147,7 @@ const OnboardingForm = () => {
           name="message"
           value={form.message}
           onChange={handleChange}
-          rows="5"
+          rows={compact ? 3 : 5}
         />
 
         <button type="submit" disabled={loading}>
