@@ -50,8 +50,8 @@ function Home() {
       <OnboardingModal isOpen={showModal} compact={true} onClose={handleCloseModal} />
 
       {/* Chat trigger button */}
-      {triggerVisible && <ChatTrigger onClick={handleOpenModal} />}
-    </>
+      <ChatTrigger onClick={handleOpenModal} hidden={showModal} />
+      </>
   )
 }
 
