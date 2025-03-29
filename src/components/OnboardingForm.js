@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Toast from "./Toast";
-import "../styles/onboarding-form.css";
+"use client"
 
-const interestOptions = [
-  "Rapid Prototyping",
-  "Production",
-  "Swatching",
-  "3D Sampling",
-  "Knit Programming",
-];
+import { useState, useEffect } from "react"
+import Toast from "./Toast"
+import "../styles/onboarding-form.css"
 
-const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"];
+const interestOptions = ["Rapid Prototyping", "Production", "Swatching", "3D Sampling", "Knit Programming"]
+
+const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"]
 
 const OnboardingForm = ({ compact = false }) => {
   const [form, setForm] = useState({
@@ -19,83 +15,73 @@ const OnboardingForm = ({ compact = false }) => {
     identities: [],
     email: "",
     message: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState(null);
+  })
+  const [loading, setLoading] = useState(false)
+  const [toast, setToast] = useState(null)
 
   const handleCheckboxChange = (group, value) => {
     setForm((prev) => {
-      const list = prev[group];
-      const updated = list.includes(value)
-        ? list.filter((item) => item !== value)
-        : [...list, value];
-      return { ...prev, [group]: updated };
-    });
-  };
+      const list = prev[group]
+      const updated = list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
+      return { ...prev, [group]: updated }
+    })
+  }
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setToast(null);
+    e.preventDefault()
+    setLoading(true)
+    setToast(null)
 
     try {
       const res = await fetch("/api/onboarding", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(form),
-      });
+      })
 
-      if (!res.ok) throw new Error("Failed to submit form");
+      if (!res.ok) throw new Error("Failed to submit form")
 
       setToast({
         message: "Thanks! We'll be in touch shortly.",
         type: "success",
-      });
+      })
+
       setForm({
         name: "",
         interests: [],
         identities: [],
         email: "",
         message: "",
-      });
+      })
     } catch (err) {
-      console.error(err);
+      console.error(err)
       setToast({
         message: "Submission failed. Please try again.",
         type: "error",
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (toast) {
-      const timer = setTimeout(() => setToast(null), 4000);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(() => setToast(null), 4000)
+      return () => clearTimeout(timer)
     }
-  }, [toast]);
+  }, [toast])
 
   return (
     <>
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
-
-      <form
-        className={`onboarding-form ${compact ? "chat-mode" : ""}`}
-        onSubmit={handleSubmit}
-      >
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+      <form className={`onboarding-form ${compact ? "chat-mode" : ""}`} onSubmit={handleSubmit}>
         <h2>Get Started with Maeknit</h2>
-
         <label>I am most interested in: </label>
         <div className="checkbox-group column">
           {interestOptions.map((item) => (
@@ -109,7 +95,6 @@ const OnboardingForm = ({ compact = false }) => {
             </label>
           ))}
         </div>
-
         <label>I am a:</label>
         <div className="checkbox-group column">
           {identityOptions.map((item) => (
@@ -123,39 +108,19 @@ const OnboardingForm = ({ compact = false }) => {
             </label>
           ))}
         </div>
-
         <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-
+        <input type="text" name="name" value={form.name} onChange={handleChange} required />
         <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-
+        <input type="email" name="email" value={form.email} onChange={handleChange} required />
         <label>Tell us more about yourself:</label>
-        <textarea
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          rows={compact ? 3 : 5}
-        />
-
+        <textarea name="message" value={form.message} onChange={handleChange} rows={compact ? 3 : 5} />
         <button type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default OnboardingForm;
+export default OnboardingForm
+
