@@ -12,14 +12,14 @@ const OnboardingForm = ({ compact = false }) => {
   const [form, setForm] = useState({
     name: "",
     interests: [],
-    identities: [],
+    identity: "",
     email: "",
     message: "",
   })
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState(null)
 
-  const handleCheckboxChange = (group, value) => {
+  const handleCheckboxChanges = (group, value) => {
     setForm((prev) => {
       const list = prev[group]
       const updated = list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
@@ -27,6 +27,14 @@ const OnboardingForm = ({ compact = false }) => {
     })
   }
 
+
+  const handleCheckboxChange = (field, value) => {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+ 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -55,7 +63,7 @@ const OnboardingForm = ({ compact = false }) => {
       setForm({
         name: "",
         interests: [],
-        identities: [],
+        identity: "",
         email: "",
         message: "",
       })
@@ -89,7 +97,7 @@ const OnboardingForm = ({ compact = false }) => {
               <input
                 type="checkbox"
                 checked={form.interests.includes(item)}
-                onChange={() => handleCheckboxChange("interests", item)}
+                onChange={() => handleCheckboxChanges("interests", item)}
               />
               {item}
             </label>
@@ -100,10 +108,12 @@ const OnboardingForm = ({ compact = false }) => {
           {identityOptions.map((item) => (
             <label key={item}>
               <input
-                type="checkbox"
-                checked={form.identities.includes(item)}
-                onChange={() => handleCheckboxChange("identities", item)}
-              />
+                type="radio"
+                name="identity"
+                value={item}
+                checked={form.identity === item}
+                onChange={() => handleCheckboxChange("identity", item)}
+                />
               {item}
             </label>
           ))}

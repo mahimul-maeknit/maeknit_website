@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(405).send("Method Not Allowed");
   }
 
-  const { name, interests = [], identities = [], email, message } = req.body || {};
+  const { name, interests = [], identity, email, message } = req.body || {};
 
   if (!email || typeof email !== "string") {
     return res.status(400).json({ error: "Email is required." });
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       <p><strong>Name:</strong> ${name || "N/A"}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Interests:</strong> ${interests.join(", ") || "N/A"}</p>
-      <p><strong>Identity:</strong> ${identities.join(", ") || "N/A"}</p>
+      <p><strong>Identity:</strong> ${identity || "N/A"}</p>
       <p><strong>Message:</strong> ${message || "N/A"}</p>
     </div>`;
 
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       <p><strong>Name:</strong> ${name || "N/A"}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Interests:</strong> ${interests.join(", ") || "N/A"}</p>
-      <p><strong>Identity:</strong> ${identities.join(", ") || "N/A"}</p>
+      <p><strong>Identity:</strong> ${identity || "N/A"}</p>
       <p><strong>Message:</strong> ${message || "N/A"}</p>
     </div>`;
 
@@ -62,12 +62,12 @@ export default async function handler(req, res) {
       await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interests, identities, message }),
+        body: JSON.stringify({ name, email, interests, identity, message }),
       });
     }
 
     // Push to Odoo
-    await createOdooLead({ name, email, interests, identities, message });
+    await createOdooLead({ name, email, interests, identity, message });
 
     return res.status(200).json({ success: true });
   } catch (err) {
