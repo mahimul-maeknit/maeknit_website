@@ -5,38 +5,50 @@ import Toast from "./Toast"
 import "../styles/onboarding-form.css"
 
 const interestOptions = ["Rapid Prototyping", "Production", "Swatching", "3D Sampling", "Knit Programming"]
-
 const identityOptions = ["Brand", "Designer", "Buyer", "Factory", "Student"]
 
-const OnboardingForm = ({ compact = false }) => {
+const OnboardingForm = ({ compact = false, userCity = "", userCountry = "", userCountryCode = "" }) => {
   const [form, setForm] = useState({
     name: "",
     interests: [],
     identity: "",
     email: "",
     message: "",
+    userCity: "",
+    userCountry: "",
+    userCountryCode: "",
   })
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState(null)
+  // Sync location props to form state
+  useEffect(() => {
+    if (userCity || userCountry || userCountryCode) {
+      setForm((prev) => ({
+        ...prev,
+        userCity,
+        userCountry,
+        userCountryCode,
+      }))
+    }
+  }, [userCity, userCountry, userCountryCode])
 
   const handleCheckboxChanges = (group, value) => {
     setForm((prev) => {
-      const list = prev[group]
-      const updated = list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
+      const current = prev[group]
+      const updated = current.includes(value)
+        ? current.filter((item) => item !== value)
+        : [...current, value]
       return { ...prev, [group]: updated }
     })
   }
 
+  const handleRadioChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }))
+  }
 
-  const handleCheckboxChange = (field, value) => {
-    setForm((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
- 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
@@ -47,32 +59,27 @@ const OnboardingForm = ({ compact = false }) => {
     try {
       const res = await fetch("/api/onboarding", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       })
 
       if (!res.ok) throw new Error("Failed to submit form")
 
-      setToast({
-        message: "Thanks! We'll be in touch shortly.",
-        type: "success",
-      })
+      setToast({ message: "Thanks! We'll be in touch shortly.", type: "success" })
 
-      setForm({
+      setForm((prev) => ({
         name: "",
         interests: [],
         identity: "",
         email: "",
         message: "",
-      })
+        userCity: prev.userCity,
+        userCountry: prev.userCountry,
+        userCountryCode: prev.userCountryCode,
+      }))
     } catch (err) {
       console.error(err)
-      setToast({
-        message: "Submission failed. Please try again.",
-        type: "error",
-      })
+      setToast({ message: "Submission failed. Please try again.", type: "error" })
     } finally {
       setLoading(false)
     }
@@ -90,7 +97,8 @@ const OnboardingForm = ({ compact = false }) => {
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       <form className={`onboarding-form ${compact ? "chat-mode" : ""}`} onSubmit={handleSubmit}>
         <h2>Get Started with Maeknit</h2>
-        <label>I am most interested in: </label>
+
+        <label>I am most interested in:</label>
         <div className="checkbox-group column">
           {interestOptions.map((item) => (
             <label key={item}>
@@ -103,6 +111,7 @@ const OnboardingForm = ({ compact = false }) => {
             </label>
           ))}
         </div>
+
         <label>I am a:</label>
         <div className="checkbox-group column">
           {identityOptions.map((item) => (
@@ -112,18 +121,22 @@ const OnboardingForm = ({ compact = false }) => {
                 name="identity"
                 value={item}
                 checked={form.identity === item}
-                onChange={() => handleCheckboxChange("identity", item)}
-                />
+                onChange={() => handleRadioChange("identity", item)}
+              />
               {item}
             </label>
           ))}
         </div>
+
         <label>Name:</label>
         <input type="text" name="name" value={form.name} onChange={handleChange} required />
+
         <label>Email:</label>
         <input type="email" name="email" value={form.email} onChange={handleChange} required />
+
         <label>Tell us more about yourself:</label>
         <textarea name="message" value={form.message} onChange={handleChange} rows={compact ? 3 : 5} />
+
         <button type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </button>
@@ -133,4 +146,3 @@ const OnboardingForm = ({ compact = false }) => {
 }
 
 export default OnboardingForm
-

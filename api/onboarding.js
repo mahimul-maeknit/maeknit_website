@@ -6,13 +6,12 @@ const { SENDGRID_API_KEY, GOOGLE_SHEETS_WEBHOOK_URL } = getConfig();
 sendgrid.setApiKey(SENDGRID_API_KEY || "");
 
 export default async function handler(req, res) {
-  console.log("Received request:", req.method);
 
   if (req.method !== "POST") {
     return res.status(405).send("Method Not Allowed");
   }
 
-  const { name, interests = [], identity, email, message } = req.body || {};
+  const { name, interests = [], identity, email, message, userCity, userCountry, userCountryCode } = req.body || {};
 
   if (!email || typeof email !== "string") {
     return res.status(400).json({ error: "Email is required." });
@@ -26,6 +25,8 @@ export default async function handler(req, res) {
       <p><strong>Interests:</strong> ${interests.join(", ") || "N/A"}</p>
       <p><strong>Identity:</strong> ${identity || "N/A"}</p>
       <p><strong>Message:</strong> ${message || "N/A"}</p>
+      <p><strong>User City:</strong> ${userCity || "N/A"}</p>
+      <p><strong>User Country:</strong> ${userCountry || "N/A"}</p>
     </div>`;
 
   const confirmationHTML = `
@@ -58,16 +59,15 @@ export default async function handler(req, res) {
 
     // Google Sheets
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
-      console.log('Google sheets ok');
       await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interests, identity, message }),
+        body: JSON.stringify({ name, email, interests, identity, message, userCity, userCountry }),
       });
     }
 
     // Push to Odoo
-    await createOdooLead({ name, email, interests, identity, message });
+    await createOdooLead({ name, email, interests, identity, message, userCity, userCountry, userCountryCode });
 
     return res.status(200).json({ success: true });
   } catch (err) {
